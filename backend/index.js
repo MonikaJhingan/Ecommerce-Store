@@ -7,6 +7,11 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 
+const cartRoutes=require('./routes/cartRoutes');
+const orderRoutes=require('./routes/orderRoutes');
+const discountRoutes=require('./routes/discountRoutes');
+
+
 // Middleware
 
 app.use(express.json());
@@ -19,7 +24,13 @@ mongoose.connect(process.env.MONGO_URI, {
 
 }).then(() => console.log("MongoDB Connected"))
    .catch(err => console.log(err));
+   
+   
+   app.use('/api/cart', cartRoutes); 
+   app.use('/api/order', orderRoutes); //Cart Routes
+   app.use('/api/discount', discountRoutes); //Cart Routes
 
+//Cart Routes
 
 app.get("/", (req, res) => {
    res.send("Server Running");
